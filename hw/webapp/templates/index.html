@@ -16,6 +16,7 @@
             <h5 class="card-title">{{ task.status_key }}</h5>
             <h6 class="card-subtitle mb-2">{{ task.summary }}</h6>
             <p class="card-text">{{ task.type_key }}</p>
+            <a href="{% url 'task_view' task.pk %}">Details</a><br>
             <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
             <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
             </div>    
