@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<body>
+    {% block menu %}
+    <li><a href="#">Add Task</a></li>    
+    {% endblock %}
+    {% block content %}
+    <div class="container">
+    <h1>Task List</h1>
+        {% if not tasks %}
+            <h2>There is no tasks that you are looking for</h2>
+        {% endif %}
+
+        {% for task in tasks %}
+        <div class="card mb-2" style="width: 18rem;">
+            <div class="card-body mb-2">
+            <h5 class="card-title">{{ task.status_key }}</h5>
+            <h6 class="card-subtitle mb-2">{{ task.summary }}</h6>
+            <p class="card-text">{{ task.type_key }}</p>
+            <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
+            <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
+            </div>    
+        </div>
+        {% endfor %}
+    </div>    
+    {% endblock %}
+</body>
+</html>
