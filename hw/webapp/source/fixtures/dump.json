@@ -1,0 +1,122 @@
+[
+{
+  "model": "webapp.task",
+  "pk": 1,
+  "fields": {
+    "created_at": "2021-03-11T09:52:43.244Z",
+    "updated_at": "2021-03-11T09:52:43.244Z",
+    "summary": "New Task",
+    "description": "Some info about just created task",
+    "status_key": 1,
+    "type_key": 1
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 2,
+  "fields": {
+    "created_at": "2021-03-11T09:53:35.732Z",
+    "updated_at": "2021-03-11T09:53:35.732Z",
+    "summary": "Task In Progress",
+    "description": "Some information about task that in progress for a while and it needs some enhancement",
+    "status_key": 2,
+    "type_key": 3
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 3,
+  "fields": {
+    "created_at": "2021-03-11T09:54:11.857Z",
+    "updated_at": "2021-03-11T09:54:11.857Z",
+    "summary": "Task Done",
+    "description": "Some information about completed task",
+    "status_key": 3,
+    "type_key": 1
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 4,
+  "fields": {
+    "created_at": "2021-03-11T09:54:54.937Z",
+    "updated_at": "2021-03-11T09:54:54.937Z",
+    "summary": "Problematic Task",
+    "description": "Some information about task that has some minor bugs which required to fix",
+    "status_key": 2,
+    "type_key": 2
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 5,
+  "fields": {
+    "created_at": "2021-03-11T09:56:39.550Z",
+    "updated_at": "2021-03-11T09:56:39.551Z",
+    "summary": "FInished Bugged Task",
+    "description": "This task was finished but it doesn't work correctly because of some issues",
+    "status_key": 3,
+    "type_key": 2
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "status_choice": "New"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "status_choice": "In Progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "status_choice": "Done"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "type_status": "Task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "type_status": "Bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "type_status": "Enhancement"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$dIG9DR6AmTls$lQwDLj5DNBOWFI5Mh0ATd4O0TSUttqhdkq+1zxsYtCc=",
+    "last_login": "2021-03-11T09:41:40.420Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-03-11T09:41:10.934Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
