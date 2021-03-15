@@ -8,7 +8,7 @@
             <h5 class="card-title">Status: {{ task.status_key }}</h5>
             <h6 class="card-subtitle mb-2">Summary: {{ task.summary }}</h6>
             <p class="card-text">{{ task.description }}</p>
-            <p class="card-text">Type: {{ task.type_key }}</p>
+            <p class="card-text">Type: {% for types in task.type_key.all %}{{ types.type_status }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
             <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
             <a href="#"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
             <a href="{% url 'task_list' %}">Back to list</a>

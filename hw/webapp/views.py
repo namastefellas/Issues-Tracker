@@ -30,7 +30,12 @@ class TaskCreate(View):
     def post(self, request, *args, **kwargs):
         form = TaskForm(data=request.POST)
         if form.is_valid():
-            task=Task.objects.create(**form.cleaned_data)
+            task=Task.objects.create(
+                summary=form.cleaned_data.get("summary"),
+                description=form.cleaned_data.get("description"),
+                status_key=form.cleaned_data.get("status_key")
+            )
+            task.type_key.set(form.cleaned_data.get('type_key'))
             return redirect('task_view', pk=task.pk)
         else:
             return redirect('task_create.html', context={'form': form})
@@ -44,7 +49,7 @@ class TaskEdit(View):
             'summary': task.summary,
             'description': task.description,
             'status_key': task.status_key,
-            'type_key': task.type_key
+            'type_key': task.type_key.all()
         })
         return render(request, 'task_edit.html', {'form': form, 'task': task})
 
@@ -55,8 +60,9 @@ class TaskEdit(View):
             task.summary = form.cleaned_data['summary']
             task.description = form.cleaned_data['description']
             task.status_key = form.cleaned_data['status_key']
-            task.type_key = form.cleaned_data['type_key']
+            task.type_key.set(form.cleaned_data.get('type_key'))
             task.save()
+
             return redirect('task_view', pk=kwargs.get('pk'))
         else:
             return redirect(request, 'task_edit.html', context={'form': form})
