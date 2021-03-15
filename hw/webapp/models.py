@@ -21,13 +21,13 @@ class Task(BaseModel):
         null=False,
         blank=False
     )
-    type_key = models.ForeignKey(
+    type_key = models.ManyToManyField(
         'webapp.Type',
-        on_delete=models.PROTECT,
-        related_name='type',
+        related_name='tasks',
         verbose_name='Type',
-        null=False,
-        blank=False
+        through='webapp.TaskType',
+        through_fields=('task', 'types'),
+        blank=True
     )
 
     class Meta:
@@ -60,3 +60,20 @@ class Type(models.Model):
 
     def __str__(self):
         return f'{self.type_status}'
+
+class TaskType(models.Model):
+    task = models.ForeignKey(
+        'webapp.Task', 
+        related_name='task_types',
+         on_delete=models.CASCADE,
+         verbose_name='Task'
+         )
+    types = models.ForeignKey(
+        'webapp.Type',
+        related_name='types_task',
+        on_delete=models.PROTECT,
+        verbose_name='Type'
+    )
+
+    def __str__(self):
+        return f'{self.task} {self.types}'
