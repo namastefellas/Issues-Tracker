@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from webapp.models import Task
-from django.views.generic import View, TemplateView, RedirectView
+from django.views.generic import View, TemplateView, RedirectView, FormView
 from webapp.forms import TaskForm
+from webapp.base_view import CustomFormView
 
 # Create your views here.
 
@@ -21,51 +22,58 @@ class TaskView(TemplateView):
         return super().get_context_data(**kwargs)
 
 
-class TaskCreate(View):
+class TaskCreate(CustomFormView):
+    template_name = 'task_create.html' 
+    form_class = TaskForm
+    redirect_url = 'task_list'
 
-    def get(self, request, *args, **kwargs):
-        form = TaskForm()
-        return render(request, 'task_create.html', {'form': form})
+    def form_valid(self, form):
+        types = form.cleaned_data.pop('type_key')
+        task = Task()
+        for key, value in form.cleaned_data.items():
+            setattr(task, key, value)
 
-    def post(self, request, *args, **kwargs):
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            task=Task.objects.create(
-                summary=form.cleaned_data.get("summary"),
-                description=form.cleaned_data.get("description"),
-                status_key=form.cleaned_data.get("status_key")
+        task.save()
+        task.type_key.set(types)
+
+        return super().form_valid(form)
+
+
+class TaskEdit(FormView):
+    form_class = TaskForm
+    template_name = 'task_edit.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.task = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        return super().get_initial()
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.task
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = self.task
+        return context
+
+    def get_object(self):
+        task = get_object_or_404(
+            Task, id=self.kwargs.get('pk')
             )
-            task.type_key.set(form.cleaned_data.get('type_key'))
-            return redirect('task_view', pk=task.pk)
-        else:
-            return redirect('task_create.html', context={'form': form})
+        return task
 
+    def form_valid(self, form):
+        types = form.cleaned_data.pop('type_key')
+        form.save()
+        self.task.type_key.set(types)
+        return super().form_valid(form)
 
-class TaskEdit(View):
-
-    def get(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, id=kwargs.get('pk'))
-        form = TaskForm(initial={
-            'summary': task.summary,
-            'description': task.description,
-            'status_key': task.status_key,
-            'type_key': task.type_key.all()
-        })
-        return render(request, 'task_edit.html', {'form': form, 'task': task})
-
-    def post(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, id=kwargs.get('pk'))
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            task.summary = form.cleaned_data['summary']
-            task.description = form.cleaned_data['description']
-            task.status_key = form.cleaned_data['status_key']
-            task.type_key.set(form.cleaned_data.get('type_key'))
-            task.save()
-
-            return redirect('task_view', pk=kwargs.get('pk'))
-        else:
-            return redirect(request, 'task_edit.html', context={'form': form})
+    def get_success_url(self):
+        return reverse('task_view', kwargs={'pk': self.kwargs.get('pk')})
 
 
 class TaskDelete(View):

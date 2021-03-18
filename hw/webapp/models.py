@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 # Create your models here.
 
 
@@ -11,8 +12,8 @@ class BaseModel(models.Model):
 
 
 class Task(BaseModel):
-    summary = models.CharField(max_length=100, null=False, blank=False, verbose_name='Summary')
-    description = models.TextField(max_length=400, null=True, blank=True, verbose_name='Description')
+    summary = models.CharField(max_length=100, null=False, blank=False, verbose_name='Summary', validators=(MinLengthValidator(5),))
+    description = models.TextField(max_length=400, null=True, blank=True, verbose_name='Description', validators=(MinLengthValidator(15),))
     status_key = models.ForeignKey(
         'webapp.Status',
         on_delete=models.PROTECT,
