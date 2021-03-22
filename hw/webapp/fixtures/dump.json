@@ -1,62 +1,79 @@
 [
 {
   "model": "webapp.task",
-  "pk": 1,
+  "pk": 33,
   "fields": {
-    "created_at": "2021-03-11T09:52:43.244Z",
-    "updated_at": "2021-03-11T09:52:43.244Z",
-    "summary": "New Task",
-    "description": "Some info about just created task",
-    "status_key": 1,
-    "type_key": 1
+    "created_at": "2021-03-18T10:18:02.658Z",
+    "updated_at": "2021-03-18T10:19:29.525Z",
+    "summary": "New Task(())",
+    "description": "Some info about new task",
+    "status_key": 1
   }
 },
 {
   "model": "webapp.task",
-  "pk": 2,
+  "pk": 35,
   "fields": {
-    "created_at": "2021-03-11T09:53:35.732Z",
-    "updated_at": "2021-03-11T09:53:35.732Z",
+    "created_at": "2021-03-22T08:19:11.922Z",
+    "updated_at": "2021-03-22T08:19:11.922Z",
+    "summary": "Test Task",
+    "description": "Some short info about task",
+    "status_key": 3
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 36,
+  "fields": {
+    "created_at": "2021-03-22T08:19:47.717Z",
+    "updated_at": "2021-03-22T08:19:47.717Z",
     "summary": "Task In Progress",
-    "description": "Some information about task that in progress for a while and it needs some enhancement",
-    "status_key": 2,
-    "type_key": 3
+    "description": "Some info about task in progress",
+    "status_key": 2
   }
 },
 {
   "model": "webapp.task",
-  "pk": 3,
+  "pk": 37,
   "fields": {
-    "created_at": "2021-03-11T09:54:11.857Z",
-    "updated_at": "2021-03-11T09:54:11.857Z",
-    "summary": "Task Done",
-    "description": "Some information about completed task",
-    "status_key": 3,
-    "type_key": 1
+    "created_at": "2021-03-22T08:20:12.129Z",
+    "updated_at": "2021-03-22T08:20:12.129Z",
+    "summary": "Some short info",
+    "description": "Some short description",
+    "status_key": 1
   }
 },
 {
   "model": "webapp.task",
-  "pk": 4,
+  "pk": 38,
   "fields": {
-    "created_at": "2021-03-11T09:54:54.937Z",
-    "updated_at": "2021-03-11T09:54:54.937Z",
-    "summary": "Problematic Task",
-    "description": "Some information about task that has some minor bugs which required to fix",
-    "status_key": 2,
-    "type_key": 2
+    "created_at": "2021-03-22T08:20:55.956Z",
+    "updated_at": "2021-03-22T08:20:55.957Z",
+    "summary": "Bugged",
+    "description": "There is some bugs in your ended task",
+    "status_key": 3
   }
 },
 {
   "model": "webapp.task",
-  "pk": 5,
+  "pk": 39,
   "fields": {
-    "created_at": "2021-03-11T09:56:39.550Z",
-    "updated_at": "2021-03-11T09:56:39.551Z",
-    "summary": "FInished Bugged Task",
-    "description": "This task was finished but it doesn't work correctly because of some issues",
-    "status_key": 3,
-    "type_key": 2
+    "created_at": "2021-03-22T08:21:34.437Z",
+    "updated_at": "2021-03-22T08:21:34.437Z",
+    "summary": "Enhancement",
+    "description": "Task finished, but I suggest you to do some enhancement",
+    "status_key": 3
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 40,
+  "fields": {
+    "created_at": "2021-03-22T09:51:45.843Z",
+    "updated_at": "2021-03-22T09:51:45.843Z",
+    "summary": "Bugged Task",
+    "description": "Some info about bugged task",
+    "status_key": 2
   }
 },
 {
@@ -99,6 +116,102 @@
   "pk": 3,
   "fields": {
     "type_status": "Enhancement"
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 20,
+  "fields": {
+    "task": 33,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 22,
+  "fields": {
+    "task": 35,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 23,
+  "fields": {
+    "task": 35,
+    "types": 2
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 24,
+  "fields": {
+    "task": 36,
+    "types": 2
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 25,
+  "fields": {
+    "task": 36,
+    "types": 3
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 26,
+  "fields": {
+    "task": 37,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 27,
+  "fields": {
+    "task": 38,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 28,
+  "fields": {
+    "task": 38,
+    "types": 2
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 29,
+  "fields": {
+    "task": 39,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 30,
+  "fields": {
+    "task": 39,
+    "types": 3
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 31,
+  "fields": {
+    "task": 40,
+    "types": 1
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 32,
+  "fields": {
+    "task": 40,
+    "types": 2
   }
 },
 {

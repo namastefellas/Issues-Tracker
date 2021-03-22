@@ -1,0 +1,10 @@
+from webapp.models import Task
+from django.db.models import Q
+from datetime import datetime
+from django.utils import timezone
+
+
+Task.objects.filter(created_at__range=(timezone.datetime(year=2021, month=2, day=22), timezone.now())).exclude(status_key=3)
+Task.objects.filter(Q(status_key=3) | Q(status_key=1), Q(type_key=1), Q(type_key=1))
+Task.objects.filter(Q(summary__contains='bug') |Q(type_key=2)).exclude(status_key=3)
+
