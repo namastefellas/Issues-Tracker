@@ -11,9 +11,26 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class Project(models.Model):
+    started_at = models.DateField(null=False, blank=False)
+    end_at = models.DateField(null=True, blank=True)
+    name = models.CharField(null=False, blank=False, max_length=100)
+    description = models.TextField(max_length=400, null=True, blank=True)
+
+    class Meta:
+        db_table = 'projects'
+        verbose_name = 'Project'
+        verbose_name_plural = 'Projects'
+
+    def __str__(self):
+        return f'{self.started_at} {self.end_at} {self.name} {self.description}'
+
+
+
 class Task(BaseModel):
     summary = models.CharField(max_length=100, null=False, blank=False, verbose_name='Summary', validators=(MinLengthValidator(5),))
     description = models.TextField(max_length=400, null=True, blank=True, verbose_name='Description', validators=(MinLengthValidator(15),))
+    project = models.ForeignKey('webapp.Project', on_delete=models.CASCADE, verbose_name='Project', related_name='projects', default=1)
     status_key = models.ForeignKey(
         'webapp.Status',
         on_delete=models.PROTECT,
@@ -39,6 +56,7 @@ class Task(BaseModel):
     def __str__(self):
         return f'{self.summary} {self.description}'
 
+
 class Status(models.Model):
     status_choice = models.CharField(max_length=100, null=False, verbose_name='Status')
 
@@ -61,6 +79,7 @@ class Type(models.Model):
 
     def __str__(self):
         return f'{self.type_status}'
+
 
 class TaskType(models.Model):
     task = models.ForeignKey(

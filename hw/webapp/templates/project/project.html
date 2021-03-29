@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<body>
+    {% block menu %}  
+    <li><a href="{% url 'project_create' %}">Add Project</a></li>       
+    {% endblock %}
+    {% block content %}
+    <div class="container">
+    <h1>Project List</h1>
+        {% if not projects %}
+            <h2>There is no projects that you are looking for</h2>
+        {% else %}
+            {% include "partial/search.html" %}
+        {% endif %}
+        {% for project in projects %}
+        <div class="card mb-2" style="width: 18rem;">
+            <div class="card-body mb-2">
+            <h5 class="card-title">Name: {{ project.name }}</h5>
+            <a href="{% url 'project_detail' project.pk %}">More</a><br>
+            </div>
+        </div>     
+        {% endfor %}
+    </div>   
+    {% endblock %}
+</body>
+</html>

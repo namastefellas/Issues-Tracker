@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from webapp.models import Task
-from django.views.generic import View, TemplateView, RedirectView, FormView, ListView
+from webapp.models import Task, Project
+from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, CreateView, DetailView
 from django.db.models import Q
 from django.utils.http import urlencode
 
 
 from webapp.forms import TaskForm, SearchForm
-from webapp.base_view import CustomFormView
+# from webapp.base_view import CustomFormView
 
 
 
 # Create your views here.
 
 class IndexView(ListView):
-    template_name = 'index.html'
+    template_name = 'task/index.html'
     model = Task
     context_object_name = 'tasks'
     ordering = ('summary', '-created_at')
@@ -50,34 +50,28 @@ class IndexView(ListView):
         return context
 
 
-class TaskView(TemplateView):
-    template_name = 'task_view.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['task'] = get_object_or_404(Task, id=kwargs.get('pk'))
-        return super().get_context_data(**kwargs)
+class TaskView(DetailView):
+    template_name = 'task/task_view.html'
+    model = Task
 
 
-class TaskCreate(CustomFormView):
-    template_name = 'task_create.html' 
+class TaskCreate(CreateView):
+    template_name = 'task/task_create.html' 
+    model = Task
     form_class = TaskForm
-    redirect_url = 'task_list'
 
     def form_valid(self, form):
-        types = form.cleaned_data.pop('type_key')
-        task = Task()
-        for key, value in form.cleaned_data.items():
-            setattr(task, key, value)
-
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
+        task = form.save(commit=False)
+        task.project = project
         task.save()
-        task.type_key.set(types)
-
-        return super().form_valid(form)
-
+        form.save_m2m()
+        return redirect('project_detail', pk=self.kwargs.get('pk'))
+    
 
 class TaskEdit(FormView):
     form_class = TaskForm
-    template_name = 'task_edit.html'
+    template_name = 'task/task_edit.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.task = self.get_object()
@@ -115,12 +109,8 @@ class TaskEdit(FormView):
 class TaskDelete(View):
     def get(self, request, *args, **kwargs):
         task = get_object_or_404(Task, id=kwargs.get('pk'))
-        return render(request, 'task_delete.html', {'task': task})
+        return render(request, 'task/task_delete.html', {'task': task})
     def post(self, request, *args, **kwargs):
         task = get_object_or_404(Task, id=kwargs.get('pk'))
         task.delete()
         return redirect('task_list')
-        
-
-
-            
