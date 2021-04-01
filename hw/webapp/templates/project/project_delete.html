@@ -3,10 +3,10 @@
 <li><a href="{% url 'project_view' %}">Projects</a></li>       
 {% endblock %}
 {% block content %}
-<h1>Are you sure want to delete this task?</h1>
-<form method="POST" action="{% url 'task_delete' task.pk %}">
+<h1>Are you sure want to delete this project?</h1>
+<form method="POST" action="{% url 'project_delete' project.pk %}">
     {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url 'task_list' %}">Cancel</a></p>
+        <p><a href="{% url 'project_view' %}">Cancel</a></p>
 </form>
 {% endblock %}

@@ -1,6 +1,7 @@
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from webapp.models import Project
-from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView
+from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
 
@@ -60,3 +61,18 @@ class ProjectCreate(CreateView):
         return reverse('project_detail', kwargs={'pk': self.object.pk})
 
 
+class ProjectUpdate(UpdateView):
+    form_class = ProjectForm
+    model = Project
+    template_name = 'project/project_edit.html'
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project_detail', kwargs={'pk': self.kwargs.get('pk')})
+
+
+class ProjectDelete(DeleteView):
+    model = Project
+    template_name = 'project/project_delete.html'
+    context_object_name = 'project'
+    success_url = reverse_lazy('project_view')

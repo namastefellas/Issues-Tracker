@@ -3,7 +3,7 @@
 <li><a href="{% url 'project_view' %}">Projects</a></li>       
 {% endblock %}
 {% block content %}
-<form action="{% url 'task_edit' task.pk %}" method="post">
+<form action="{% url 'project_edit' project.pk %}" method="post">
 {% csrf_token %}
 {% include "partial/forms.html" with button_text="Edit" %}
 </form>

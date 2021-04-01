@@ -85,12 +85,3 @@ class TaskDelete(DeleteView):
     template_name = 'task/task_delete.html'
     context_object_name = 'task'
     success_url = reverse_lazy('task_list')
-
-
-    # def get(self, request, *args, **kwargs):
-    #     task = get_object_or_404(Task, id=kwargs.get('pk'))
-    #     return render(request, 'task/task_delete.html', {'task': task})
-    # def post(self, request, *args, **kwargs):
-    #     task = get_object_or_404(Task, id=kwargs.get('pk'))
-    #     task.delete()
-    #     return redirect('task_list')
