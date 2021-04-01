@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from webapp.models import Task, Project
-from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, CreateView, DetailView
+from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
 
@@ -69,38 +69,11 @@ class TaskCreate(CreateView):
         return redirect('project_detail', pk=self.kwargs.get('pk'))
     
 
-class TaskEdit(FormView):
+class TaskEdit(UpdateView):
     form_class = TaskForm
+    model = Task
     template_name = 'task/task_edit.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        self.task = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_initial(self):
-        return super().get_initial()
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.task
-        return kwargs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = self.task
-        return context
-
-    def get_object(self):
-        task = get_object_or_404(
-            Task, id=self.kwargs.get('pk')
-            )
-        return task
-
-    def form_valid(self, form):
-        types = form.cleaned_data.pop('type_key')
-        form.save()
-        self.task.type_key.set(types)
-        return super().form_valid(form)
+    context_object_name = 'task'
 
     def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.kwargs.get('pk')})

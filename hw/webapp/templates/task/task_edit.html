@@ -2,7 +2,7 @@
 {% block menu %}
 {% endblock %}
 {% block content %}
-<form action="{% url 'task_edit' task.id %}" method="post">
+<form action="{% url 'task_edit' task.pk %}" method="post">
 {% csrf_token %}
 {% include "partial/forms.html" with button_text="Edit" %}
 </form>
