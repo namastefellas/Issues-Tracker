@@ -3,7 +3,7 @@
 {% endblock %}
 {% block content %}
 <h1>Are you sure want to delete this task?</h1>
-<form method="POST" action="{% url 'task_delete' task.id %}">
+<form method="POST" action="{% url 'task_delete' task.pk %}">
     {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
         <p><a href="{% url 'task_list' %}">Cancel</a></p>
