@@ -17,6 +17,11 @@
         <ul class="menu">
             <li><a href="{% url 'task_list' %}">Home</a></li>
             {% block menu %}{% endblock %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log Off</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Log In</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>

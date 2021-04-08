@@ -4,6 +4,8 @@ from webapp.models import Project
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 from webapp.forms import ProjectForm, SearchForm
@@ -52,7 +54,7 @@ class ProjectDetail(DetailView):
     template_name = 'project/project_view.html'
 
 
-class ProjectCreate(CreateView):
+class ProjectCreate(LoginRequiredMixin, CreateView):
     template_name = 'project/project_create.html' 
     model = Project
     form_class = ProjectForm
@@ -61,7 +63,7 @@ class ProjectCreate(CreateView):
         return reverse('project_detail', kwargs={'pk': self.object.pk})
 
 
-class ProjectUpdate(UpdateView):
+class ProjectUpdate(LoginRequiredMixin, UpdateView):
     form_class = ProjectForm
     model = Project
     template_name = 'project/project_edit.html'
@@ -71,7 +73,7 @@ class ProjectUpdate(UpdateView):
         return reverse('project_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
-class ProjectDelete(DeleteView):
+class ProjectDelete(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'project/project_delete.html'
     context_object_name = 'project'

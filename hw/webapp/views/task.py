@@ -4,6 +4,8 @@ from webapp.models import Task, Project
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 from webapp.forms import TaskForm, SearchForm
@@ -56,7 +58,7 @@ class TaskView(DetailView):
     model = Task
 
 
-class TaskCreate(CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_create.html' 
     model = Task
     form_class = TaskForm
@@ -70,7 +72,7 @@ class TaskCreate(CreateView):
         return redirect('project_detail', pk=self.kwargs.get('pk'))
     
 
-class TaskEdit(UpdateView):
+class TaskEdit(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     model = Task
     template_name = 'task/task_edit.html'
@@ -80,7 +82,7 @@ class TaskEdit(UpdateView):
         return reverse('task_view', kwargs={'pk': self.kwargs.get('pk')})
 
 
-class TaskDelete(DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = 'task/task_delete.html'
     context_object_name = 'task'

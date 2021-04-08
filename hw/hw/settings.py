@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     #custom apps
 
-    'webapp'
+    'webapp',
+    'accounts'
 ]
 
 MIDDLEWARE = [
