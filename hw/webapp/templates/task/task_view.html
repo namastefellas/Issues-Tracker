@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block menu %}
-<li><a href="{% url 'project_view' %}">Projects</a></li>       
+<li><a href="{% url 'webapp:project_view' %}">Projects</a></li>       
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -11,9 +11,9 @@
             <p class="card-text">{{ task.description }}</p>
             <p class="card-text">Type: {% for types in task.type_key.all %}{{ types.type_status }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
           
-            <a href="{% url 'task_delete' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
-            <a href="{% url 'task_edit' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
-            <a href="{% url 'task_list' %}">Back to list</a>
+            <a href="{% url 'webapp:task_delete' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
+            <a href="{% url 'webapp:task_edit' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
+            <a href="{% url 'webapp:task_list' %}">Back to list</a>
             </div>    
         </div>
     </div>

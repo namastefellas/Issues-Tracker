@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block menu %}
-<li><a href="{% url 'project_view' %}">Projects</a></li>       
+<li><a href="{% url 'webapp:project_view' %}">Projects</a></li>       
 {% endblock %}
 {% block content %}
 <h1>Are you sure want to delete this task?</h1>
-<form method="POST" action="{% url 'task_delete' task.pk %}">
+<form method="POST" action="{% url 'webapp:task_delete' task.pk %}">
     {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url 'task_list' %}">Cancel</a></p>
+        <p><a href="{% url 'webapp:task_list' %}">Cancel</a></p>
 </form>
 {% endblock %}
