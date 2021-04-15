@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('webapp/', include('webapp.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', RedirectView.as_view(url=HOMEPAGE_URL, permanent=True)),
+    path('', RedirectView.as_view(url=HOMEPAGE_URL, permanent=False)),
 ]

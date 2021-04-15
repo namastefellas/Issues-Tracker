@@ -4,7 +4,9 @@ from webapp.models import Project
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.models import User
 
 
 
@@ -54,27 +56,39 @@ class ProjectDetail(DetailView):
     template_name = 'project/project_view.html'
 
 
-class ProjectCreate(LoginRequiredMixin, CreateView):
+class ProjectCreate(PermissionRequiredMixin, CreateView):
     template_name = 'project/project_create.html' 
     model = Project
     form_class = ProjectForm
+    permission_required = 'webapp.project_create'
 
-    def get_success_url(self):
-        return reverse('webapp:project_detail', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        user = self.request.user
+        project = form.save()
+        project.user.add(user)
+        return redirect('webapp:project_detail', pk=project.pk)
 
 
-class ProjectUpdate(LoginRequiredMixin, UpdateView):
+
+
+    # def get_success_url(self):
+    #     return reverse('webapp:project_detail', kwargs={'pk': self.object.pk})
+
+
+class ProjectUpdate(PermissionRequiredMixin, UpdateView):
     form_class = ProjectForm
     model = Project
     template_name = 'project/project_edit.html'
     context_object_name = 'project'
+    permission_required = 'webapp:project_edit'
 
     def get_success_url(self):
         return reverse('webapp:project_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
-class ProjectDelete(LoginRequiredMixin, DeleteView):
+class ProjectDelete(PermissionRequiredMixin, DeleteView):
     model = Project
     template_name = 'project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('webapp:project_view')
+    permission_required = 'webapp:project_delete'

@@ -12,7 +12,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'description', 'started_at', 'end_at']
-    fields = ['name', 'description', 'started_at', 'end_at']
+    fields = ['name', 'description', 'started_at', 'end_at', 'user']
 
 
 admin.site.register(Task, TaskAdmin)

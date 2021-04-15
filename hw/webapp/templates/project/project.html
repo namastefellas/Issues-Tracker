@@ -14,7 +14,8 @@
         {% for project in projects %}
         <div class="card mb-2" style="width: 18rem;">
             <div class="card-body mb-2">
-            <h5 class="card-title">Name: {{ project.name }}</h5>
+            <h5 class="card-title">Name: {{ project.name }}</h5>  
+            <p class="card-text">{{ project.user }}</p>                
             <a href="{% url 'webapp:project_detail' project.pk %}">More</a><br>
             <a href="{% url 'webapp:project_delete' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
             <a href="{% url 'webapp:project_edit' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>

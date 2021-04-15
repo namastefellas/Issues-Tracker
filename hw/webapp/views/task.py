@@ -4,8 +4,8 @@ from webapp.models import Task, Project
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 
 
 from webapp.forms import TaskForm, SearchForm
@@ -58,10 +58,11 @@ class TaskView(DetailView):
     model = Task
 
 
-class TaskCreate(LoginRequiredMixin, CreateView):
+class TaskCreate(PermissionRequiredMixin, CreateView):
     template_name = 'task/task_create.html' 
     model = Task
     form_class = TaskForm
+    permission_required = 'webapp.task_create'
 
     def form_valid(self, form):
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
@@ -72,18 +73,21 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         return redirect('webapp:project_detail', pk=self.kwargs.get('pk'))
     
 
-class TaskEdit(LoginRequiredMixin, UpdateView):
+class TaskEdit(PermissionRequiredMixin, UpdateView):
     form_class = TaskForm
     model = Task
     template_name = 'task/task_edit.html'
     context_object_name = 'task'
+    permission_required = 'webapp.task_edit'
 
     def get_success_url(self):
         return reverse('webapp:task_view', kwargs={'pk': self.kwargs.get('pk')})
 
 
-class TaskDelete(LoginRequiredMixin, DeleteView):
+class TaskDelete(PermissionRequiredMixin, DeleteView):
     model = Task
     template_name = 'task/task_delete.html'
     context_object_name = 'task'
     success_url = reverse_lazy('webapp:task_list')
+    permission_required = 'webapp.task_delete'
+    

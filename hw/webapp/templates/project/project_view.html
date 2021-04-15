@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block menu %}
 <li><a href="{% url 'webapp:task_create' project.pk %}">Create Task</a></li>  
-<li><a href="{% url 'webapp:project_view' %}">Projects</a></li>       
+<li><a href="{% url 'webapp:project_view' %}">Projects</a></li>  
+<li><a href="{% url 'accounts:add_user' project.pk %}">Add User</a></li>       
+
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -10,6 +12,9 @@
             <h5 class="card-title">Name: {{ project.name }}</h5>
             <p class="card-text">{{ project.description }}</p>
             <p class="card-text">{{ project.started_at }}</p>
+            {% for user in project.user.all %}
+              <p class="card-text">{{ user }}</p>
+            {% endfor %}
             {% if project.end_at is None %}
                 <p>No end data was given</p>    
               {% else %}   
@@ -29,5 +34,5 @@
             </div>
             {% endfor %}
         </div>
-    </div>
+</div>
 {% endblock %}    
