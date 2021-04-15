@@ -6,7 +6,8 @@
     "started_at": "2021-03-29",
     "end_at": null,
     "name": "Test",
-    "description": ""
+    "description": "",
+    "user": []
   }
 },
 {
@@ -16,7 +17,26 @@
     "started_at": "2021-03-29",
     "end_at": null,
     "name": "namaste",
-    "description": ""
+    "description": "",
+    "user": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 9,
+  "fields": {
+    "started_at": "2021-04-15",
+    "end_at": null,
+    "name": "New Project",
+    "description": "Some description",
+    "user": [
+      1,
+      7,
+      8,
+      9
+    ]
   }
 },
 {
@@ -231,24 +251,6 @@
   "fields": {
     "task": 40,
     "types": 3
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$216000$dIG9DR6AmTls$lQwDLj5DNBOWFI5Mh0ATd4O0TSUttqhdkq+1zxsYtCc=",
-    "last_login": "2021-03-29T07:48:20.730Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@admin.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-03-11T09:41:10.934Z",
-    "groups": [],
-    "user_permissions": []
   }
 }
 ]
