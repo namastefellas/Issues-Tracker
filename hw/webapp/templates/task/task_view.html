@@ -11,8 +11,12 @@
             <p class="card-text">{{ task.description }}</p>
             <p class="card-text">Type: {% for types in task.type_key.all %}{{ types.type_status }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
           
-            <a href="{% url 'webapp:task_delete' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
-            <a href="{% url 'webapp:task_edit' task.id %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
+            {% if perms.webapp.task_delete or project.user == request.user %}
+            <a href="{% url 'webapp:project_delete' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
+            {% endif %}
+            {% if perms.webapp.task_edit or project.user == request.user %}
+            <a href="{% url 'webapp:project_edit' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
+            {% endif %}
             <a href="{% url 'webapp:task_list' %}">Back to list</a>
             </div>    
         </div>
