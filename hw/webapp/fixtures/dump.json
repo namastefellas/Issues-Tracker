@@ -124,6 +124,18 @@
   }
 },
 {
+  "model": "webapp.task",
+  "pk": 48,
+  "fields": {
+    "created_at": "2021-04-19T10:03:32.184Z",
+    "updated_at": "2021-04-19T10:03:32.184Z",
+    "summary": "gegegeefefege",
+    "description": "gegegegegegefrdgrgr",
+    "project": 9,
+    "status_key": 2
+  }
+},
+{
   "model": "webapp.status",
   "pk": 1,
   "fields": {
@@ -251,6 +263,14 @@
   "fields": {
     "task": 40,
     "types": 3
+  }
+},
+{
+  "model": "webapp.tasktype",
+  "pk": 42,
+  "fields": {
+    "task": 48,
+    "types": 1
   }
 }
 ]
