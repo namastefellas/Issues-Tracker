@@ -4,7 +4,5 @@
 {% block content %}
 <h1>Profiles:</h1>
 {% for user in users %}
-        <p>
-            <a href="{% url 'accounts:user_profile' user.id %}">{{ user.username }}</a>
-        </p>
+    <p><a href="{% url 'accounts:user_profile' user.pk %}">{{ user.username }}</a></p>
 {% endfor %}{% endblock %}

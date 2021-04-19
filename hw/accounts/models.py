@@ -14,7 +14,7 @@ class Profile(models.Model):
         return self.user.get_full_name() + "'s Profile"
 
     class Meta:
-        db_table = 'profile'
+        db_table = 'profiles'
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
         permissions = [
