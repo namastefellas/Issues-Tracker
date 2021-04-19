@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 <body>
     {% block menu %}  
-    {% if perms.webapp.project_create or project.user == request.user %}
+    {% if perms.webapp.add_project and request.user in project.user.all %}
     <li><a href="{% url 'webapp:project_create' %}">Add Project</a></li>  
     {% endif %}     
     {% endblock %}
@@ -17,15 +17,13 @@
         <div class="card mb-2" style="width: 18rem;">
             <div class="card-body mb-2">
             <h5 class="card-title">Name: {{ project.name }}</h5>  
-            {% if perms.webapp.task_view or project.user == request.user %}             
-            <a href="{% url 'webapp:project_detail' project.pk %}">More</a><br>
-            {% endif %}
-            {% if perms.webapp.task_delete or project.user == request.user %}
+            {% if perms.webapp.delete_project %}
             <a href="{% url 'webapp:project_delete' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
             {% endif %}
-            {% if perms.webapp.task_edit or project.user == request.user %}
+            {% if perms.webapp.change_project %}
             <a href="{% url 'webapp:project_edit' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
             {% endif %}
+            <a href="{% url 'webapp:project_detail' project.pk %}">More</a>
             </div>
         </div>     
         {% endfor %}

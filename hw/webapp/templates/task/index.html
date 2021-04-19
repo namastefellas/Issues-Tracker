@@ -12,20 +12,19 @@
             {% include "partial/search.html" %}
         {% endif %}
 
+        
+
         {% for task in tasks %}
         <div class="card mb-2" style="width: 18rem;">
             <div class="card-body mb-2">
             <h5 class="card-title">Status: {{ task.status_key }}</h5>
             <h6 class="card-subtitle mb-2">{{ task.summary }}</h6>
             <h6 class="card-subtitle mb-2">{{ task.description }}</h6>
-            {% if perms.webapp.task_view or project.user == request.user %}             
-            <a href="{% url 'webapp:project_detail' project.pk %}">More</a><br>
+            {% if perms.webapp.delete_task  %}
+            <a href="{% url 'webapp:task_delete' task.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
             {% endif %}
-            {% if perms.webapp.task_delete or project.user == request.user %}
-            <a href="{% url 'webapp:project_delete' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/trash.png"/></a>
-            {% endif %}
-            {% if perms.webapp.task_edit or project.user == request.user %}
-            <a href="{% url 'webapp:project_edit' project.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
+            {% if perms.webapp.change_task %}
+            <a href="{% url 'webapp:task_edit' task.pk %}"><img src="https://img.icons8.com/fluent-systems-filled/25/000000/edit.png"/></a>
             {% endif %}
             </div>    
         </div>

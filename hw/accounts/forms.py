@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
+from webapp.models import Project
 
 
 class MyUserCreationForm(forms.ModelForm):
@@ -29,3 +30,9 @@ class MyUserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name', 'email']
+
+
+class UpdateUser(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['user',]

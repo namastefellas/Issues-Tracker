@@ -62,7 +62,7 @@ class TaskCreate(PermissionRequiredMixin, CreateView):
     template_name = 'task/task_create.html' 
     model = Task
     form_class = TaskForm
-    permission_required = 'webapp.task_create'
+    permission_required = 'webapp.add_task'
 
     def form_valid(self, form):
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
@@ -73,7 +73,7 @@ class TaskCreate(PermissionRequiredMixin, CreateView):
         return redirect('webapp:project_detail', pk=self.kwargs.get('pk'))
 
     def has_permission(self):
-        project = self.get_object_or_404()
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
         return super().has_permission() and self.request.user in project.user.all()
     
 
@@ -82,11 +82,11 @@ class TaskEdit(PermissionRequiredMixin, UpdateView):
     model = Task
     template_name = 'task/task_edit.html'
     context_object_name = 'task'
-    permission_required = 'webapp.task_edit'
+    permission_required = 'webapp.change_task'
 
     def has_permission(self):
         task = self.get_object()
-        return super().has_permission() and self.request.user in task.project.all()
+        return super().has_permission() and self.request.user in task.project.user.all()
 
 
 
@@ -99,8 +99,8 @@ class TaskDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'task/task_delete.html'
     context_object_name = 'task'
     success_url = reverse_lazy('webapp:task_list')
-    permission_required = 'webapp.task_delete'
+    permission_required = 'webapp.delete_task'
     
     def has_permission(self):
         task = self.get_object()
-        return super().has_permission() and self.request.user in task.project.all()
+        return super().has_permission() and self.request.user in task.project.user.all()

@@ -60,7 +60,7 @@ class ProjectCreate(PermissionRequiredMixin, CreateView):
     template_name = 'project/project_create.html' 
     model = Project
     form_class = ProjectForm
-    permission_required = 'webapp.project_create'
+    permission_required = 'webapp.add_project'
 
     def form_valid(self, form):
         user = self.request.user
@@ -71,8 +71,6 @@ class ProjectCreate(PermissionRequiredMixin, CreateView):
 
 
 
-    # def get_success_url(self):
-    #     return reverse('webapp:project_detail', kwargs={'pk': self.object.pk})
 
 
 class ProjectUpdate(PermissionRequiredMixin, UpdateView):
@@ -80,7 +78,7 @@ class ProjectUpdate(PermissionRequiredMixin, UpdateView):
     model = Project
     template_name = 'project/project_edit.html'
     context_object_name = 'project'
-    permission_required = 'webapp:project_edit'
+    permission_required = 'webapp.change_project'
 
     def get_success_url(self):
         return reverse('webapp:project_detail', kwargs={'pk': self.kwargs.get('pk')})
@@ -91,4 +89,4 @@ class ProjectDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('webapp:project_view')
-    permission_required = 'webapp:project_delete'
+    permission_required = 'webapp.delete_project'

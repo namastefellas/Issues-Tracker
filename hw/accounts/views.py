@@ -46,7 +46,7 @@ class UserAdd(PermissionRequiredMixin, UpdateView):
     form_class = UserUpdate
     model = Project
     template_name = 'add_user.html'
-    permission_required = 'user_delete_or_add_perm'
+    permission_required = 'webapp.user_delete_or_add_perm'
 
     def has_permission(self):
         return self.request.user.is_superuser or super().has_permission() and self.request.user in self.get_object().user.all()
