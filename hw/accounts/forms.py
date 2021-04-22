@@ -29,6 +29,7 @@ class MyUserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
+            Profile.objects.create(user=user)
         return user
 
     class Meta:
