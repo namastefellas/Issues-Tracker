@@ -1,0 +1,28 @@
+{% if not projects %}
+<h2 class="text-center">User doesn't have any projects</h2>
+{% endif %}
+
+{% for project in projects %}
+<br>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h3 class="card-title"><a href="{% url 'webapp:project_detail' project.pk %}">{{ project.name }}</a></h3>
+    <p>Description: ({{ project.description }})</p>
+    {% for p in project.user.all %}
+    <p class="card-subtitle mb-2 text-muted">
+        <p><a href="{% url 'accounts:user_profile' user.pk %}">{{ user.username }}</a></p>
+        | {{ project.started_at|date:"d.m.Y" }}
+    </p>
+    {% endfor %}
+    {% if perms.webapp.change_project and request.user in project.user.all %}
+        <p class="card-title"><a href="{% url 'webapp:project_edit' project.pk %}">Update</a></p>
+    {% endif %}
+    {% if perms.webapp.change_project and request.user in project.user.all %}
+        <p class="card-title"><a href="{% url 'webapp:project_delete' project.pk %}">Delete</a></p>
+    {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% if is_paginated %}
+ {% include 'partial/paginate.html' %}
+{% endif %}

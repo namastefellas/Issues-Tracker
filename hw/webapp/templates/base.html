@@ -19,6 +19,10 @@
             {% block menu %}{% endblock %}
             {% if user.is_authenticated %}
                 <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                <li><a href="{% url 'accounts:user_profile' user.pk %}">Profile</a></li>
+                <li><a href="{% url 'accounts:user-update-profile' %}">Edit Profile</a></li>
+                <li><a href="{% url 'accounts:user-change-password' %}">Change Password</a></li>
+
             {% else %}
             <li class="menu-right"><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}" class="nav-link">Log In</a></li>
             <li class="menu-right"><a href="{% url 'accounts:create_acc' %}?next={{ request.get_full_path }}" class="nav-link">Sign In</a></li>

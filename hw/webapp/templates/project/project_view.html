@@ -13,7 +13,7 @@
             <p class="card-text">{{ project.description }}</p>
             <p class="card-text">{{ project.started_at }}</p>
             {% for user in project.user.all %}
-              <p class="card-text">{{ user }}</p>
+            <p><a href="{% url 'accounts:user_profile' user.pk %}">{{ user.username }}</a></p>
             {% endfor %}
             {% if project.end_at is None %}
                 <p>No end data was given</p>    
